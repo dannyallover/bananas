@@ -1,16 +1,16 @@
 # AES 256 encryption/decryption using pycrypto library
 
+from Crypto.Cipher import AES
+from Crypto import Random
 import sys
 import base64
 import csv
 import hashlib
-from Crypto.Cipher import AES
-from Crypto import Random
 
 BLOCK_SIZE = AES.block_size
 MODE = AES.MODE_CBC
 PASSWORD_SIZE = 16
-verify = b'\xe9\xec\x90\t\xfc\xe0\xe2\xf8\xbb\x10\x15c\xd5\x8c\xde\xcb_\x92\x8b8\xba\xe7\xf5\xcc:\xaf\x95da;\xef:'
+verify = b'\x9c3\xee\xd3\xc9\x9e\xb0\xa8\xd3\x86\xf2\x88\xe0\xb1\xfb\xb0\xd1\xf7\x8f+)d\xfdTq\xae\xfb\xd9\xdcS\xfaS'
 
 def get_key(password):
     return hashlib.sha256(password.encode("utf-8")).digest()
@@ -100,6 +100,7 @@ def decrypt(enc, key, nonce):
 def main():
     master_pass = input("enter master password: ")
     sym_key = get_key(master_pass)
+    print(hashlib.sha256(sym_key).digest())
 
     enter = verify_key(sym_key)
     if not enter:
